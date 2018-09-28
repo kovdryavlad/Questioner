@@ -1,1 +1,0 @@
-console.log("Well, why not? HelloWorld.")
