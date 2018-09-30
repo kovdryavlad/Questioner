@@ -1,7 +1,7 @@
 function QAView(appBlock) {
     this._appBlock = appBlock;
 	this.createMarkupOfApp()
-	this.sendClickEvent = new Event(this);
+	this.viewEvent = new Event(this);
 }
 
 QAView.prototype = {
@@ -26,11 +26,22 @@ QAView.prototype = {
 		this._error = document.createElement("P"); 
 		this._error.setAttribute("class", "error")
 		form.appendChild(this._error);
+
+		//подписка на нажатие клавиши
+		document.onkeydown = this.enterPressDetecting.bind(this);
 	},
 	
+	enterPressDetecting: function(e){
+		if(e.keyCode == 13){	//13 - Enter
+			this.onSendClick();
+			return false;
+		}
+	},
+
 	onSendClick : function(){
 		var answer = this._answerInput.value;
-		this.sendClickEvent.notify({
+		this.viewEvent.notify({
+			'eventType': "sendClicking",
 			'answer': answer
 		});
 	}, 

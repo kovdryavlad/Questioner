@@ -1,0 +1,44 @@
+{
+  "Questions" : [
+      {
+        "question" : "Привіт!",
+        
+        "AnswerValidator" : {
+          "type" : "WithCorrectValues",
+          "error": "Привітайся нормально!",
+          "correctAnswers": ["Привіт", "Добрий день", "Хай"]
+        }
+        
+      },
+      {
+        
+        "question" : "Як тебе звати?",
+        
+        "AnswerValidator" : {
+          "type" : "StringType",
+          "error": "Ти ж не робот, напиши нормально!"
+        }
+      },
+      {
+        "question" : "Скільки тобі років?",
+        
+        "AnswerValidator" : {
+          "type" : "NumberType",
+          "minBorder" : 10,
+          "maxBorder" : 100,
+          "minError" : "Йди звідси, щеня",
+          "maxError" : "Що ти тут забув, старий?",
+          "error" : "Ти ж не робот, напиши нормально!"
+        }
+      },
+      
+      {
+        "question" : "Ну ми починаємо",
+        
+        "AnswerValidator" : {
+          "type" : "WithoutAnswer",
+          "error": "Не поспішай!"
+        }
+      }
+    ]
+  }
