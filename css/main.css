@@ -30,6 +30,9 @@ h1{
 	width: 250px;
 	height: 300px;
 	border-radius: 5px;	
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .flexContainer{
 	height:100%;
@@ -45,4 +48,13 @@ h1{
 
 #QAapp .error{
 	color : red;
+}
+
+.inVisible{
+	display: none;
+}
+
+.loader{
+	height: 100px;
+	width: 100px;
 }

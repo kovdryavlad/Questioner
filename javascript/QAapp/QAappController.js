@@ -8,19 +8,30 @@ function QAController(view, model) {
 	var onModelEvent = this.modelEventHandler.bind(this);
 	this._model.modelEvent.attach(onModelEvent);
 
-	this._model.startAsking();
+	this._model.initializeQAlist();
 }
 
 QAController.prototype = {
     modelEventHandler : function (sender, args) {
-		if(args.eventType == "questionChanging"){
-			this._view.clearError();
-			this._view.clearAnswerInput();
-			this._view.setQuestion(args.question);
-		}
+		switch(args.eventType){
+			case "StartConfigFileLoading" :
+				this._view.showLoader();
+				break;
+			
+			case "EndConfigFileLoading":
+				this._view.hideLoader();
+				this._model.startAsking();
+				break;
+				
+			case "questionChanging":
+				this._view.clearError();
+				this._view.clearAnswerInput();
+				this._view.setQuestion(args.question);
+				break;
 
-		else if(args.eventType == "errorThrowing"){
-			this._view.showError(args.error);
+			case "errorThrowing": 
+				this._view.showError(args.error);
+				break;
 		}
     },
 	

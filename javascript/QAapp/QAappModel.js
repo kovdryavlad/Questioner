@@ -1,5 +1,5 @@
 function QAModel(configFileName) {
-	this.initializeQAlist(configFileName);	//question-answer 
+	this._configFileName = configFileName;
 	this.modelEvent = new Event(this);
 	this._currentQuestion = -1;
 }
@@ -9,15 +9,39 @@ QAModel.prototype = {
 		this.nextQuestion();
 	},
 
-    initializeQAlist : function(configFileName){
+    initializeQAlist : function(){
+		var fileName = this._configFileName;
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', fileName, true);
 
-		var questions = '[ {"question" : "Привіт!", "AnswerValidator" : { "type" : "WithCorrectValues", "error": "Привітайся нормально!", "correctAnswers": ["Привіт", "Добрий день", "Хай"]}},'+
-		'{"question" : "Як тебе звати?", "AnswerValidator" : {"type" : "StringType", "error": "Ти ж не робот, напиши нормально!"}},'+				
-		'{"question" : "Скільки тобі років?", "AnswerValidator" : {"type" : "NumberType", "minBorder" : 10, "maxBorder" : 100, "minError" : "Йди звідси, щеня", "maxError" : "Що ти тут забув, старий?", "error" : "Ти ж не робот, напиши нормально!"}},'+
-		'{"question" : "Ну ми починаємо", "AnswerValidator" : {"type" : "WithoutAnswer", "error": "Не поспішай!"}}' +
-		']';
+		var startLoadingEventArgs = {
+			'eventType' : 'StartConfigFileLoading'
+		};
+		this.modelEvent.notify(startLoadingEventArgs);
 
-		this._qalist = JSON.parse(questions); 
+		xhr.onreadystatechange = (function() { 
+			if (xhr.readyState != 4) return;
+
+			if (xhr.status != 200) {
+				alert("Error with loading config file '" + fileName + 
+					  "'\n" + xhr.status + ': ' + xhr.statusText);
+			} else {
+				var response = JSON.parse(xhr.responseText);
+				this._qalist = response["Questions"];
+
+				setTimeout((this.throwEndConfigFileLoadingEvent).bind(this), 1000);
+			}
+
+		}).bind(this);
+
+		xhr.send(); 
+	},
+
+	throwEndConfigFileLoadingEvent(){
+		var endLoadingEventArgs = {
+			'eventType' : 'EndConfigFileLoading'
+		};
+		this.modelEvent.notify(endLoadingEventArgs);	
 	},
 
 	checkAnswer : function(answer){
