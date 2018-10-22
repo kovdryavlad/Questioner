@@ -30,7 +30,7 @@ QAView.prototype = {
 		//подписка на нажатие клавиши
 		document.onkeydown = this.enterPressDetecting.bind(this);
 
-		//загрузчик
+		//загрузчик(гифка)
 		this._loader = document.createElement("IMG");
 		this._loader.setAttribute("src", "./assets/loader.gif");
 		this._loader.classList.add("inVisible");
@@ -41,7 +41,7 @@ QAView.prototype = {
 	enterPressDetecting: function(e){
 		if(e.keyCode == 13){	//13 - Enter's code
 			this.onSendClick();
-			return false;
+			return false;			//без этого false обновляется страница
 		}
 	},
 
