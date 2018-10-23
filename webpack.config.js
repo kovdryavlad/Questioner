@@ -2,12 +2,21 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
   entry: { main: './javascript/main.js' },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js'
   },
+
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000
+  },
+
   module: {
     rules: [
       {
@@ -16,7 +25,17 @@ module.exports = {
           fallback: "style-loader",
           use: "css-loader"
         })
-      }
+      }/*,  Это работает, но выкидыват ошибку
+      {
+        test: /\.json$/,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]'
+          }
+        }]
+      }*/
     ]
   },
   plugins: [
@@ -29,7 +48,18 @@ module.exports = {
       //hash: true,
       template: './index.html',
       filename: 'index.html'
-    })
-   
+    }),
+
+    new CopyWebpackPlugin([
+      {
+        from: './javascript/QAapp/QAappConfig.json',
+        //to: 'config.json',  //это переименует файл
+        //toType: 'file'
+      },
+      {
+        from: './assets/',
+        
+      }
+    ])   
   ]
 }

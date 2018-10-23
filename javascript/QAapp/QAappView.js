@@ -1,3 +1,5 @@
+const Event =  require("../event.js");
+
 function QAView(appBlock) {
     this._appBlock = appBlock;
 	this.createMarkupOfApp()
@@ -32,14 +34,14 @@ QAView.prototype = {
 
 		//загрузчик(гифка)
 		this._loader = document.createElement("IMG");
-		this._loader.setAttribute("src", "./assets/loader.gif");
+		this._loader.setAttribute("src", "./loader.gif"); //для папки dist
 		this._loader.classList.add("inVisible");
 		this._loader.classList.add("loader");
 		this._appBlock.appendChild(this._loader);
 	},
 	
 	enterPressDetecting: function(e){
-		if(e.keyCode == 13){	//13 - Enter's code
+		if(e.keyCode == 13){		//13 - Enter's code
 			this.onSendClick();
 			return false;			//без этого false обновляется страница
 		}

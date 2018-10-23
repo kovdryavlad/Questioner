@@ -1,3 +1,5 @@
+const Event =  require("../event.js");
+
 function QAModel(configFileName) {
 	this._configFileName = configFileName;
 	this.modelEvent = new Event(this);

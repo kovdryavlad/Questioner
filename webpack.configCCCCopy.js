@@ -36,7 +36,7 @@ module.exports = {
               disable: true, // webpack@2.x and newer
             },
           },
-        ]
+        ] 
       }
     ]
   },
