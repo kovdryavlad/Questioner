@@ -42,3 +42,5 @@ QAController.prototype = {
 		}
 	}
 };
+
+module.exports = QAController;

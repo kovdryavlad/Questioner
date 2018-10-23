@@ -1,6 +1,5 @@
 require("../css/main.css");
-//const QAView =  require("./QAapp/QAappView.js");
-import QAView from "./QAapp/QAappView.js";
+const QAView =  require("./QAapp/QAappView.js");
 const QAModel =  require("./QAapp/QAappModel.js");
 const QAController =  require("./QAapp/QAappController.js");
 

@@ -81,3 +81,5 @@ QAView.prototype = {
 		this._form.classList.remove("inVisible");
 	}
 };
+
+module.exports = QAView;

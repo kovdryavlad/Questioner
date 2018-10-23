@@ -15,3 +15,5 @@ Event.prototype = {
         }
     }
 };
+
+module.exports = Event;

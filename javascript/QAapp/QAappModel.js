@@ -128,3 +128,5 @@ QAModel.prototype = {
 		this.modelEvent.notify(arg);
 	}
 };
+
+module.exports = QAModel;
