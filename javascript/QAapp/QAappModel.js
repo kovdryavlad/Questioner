@@ -1,17 +1,20 @@
+'use strict';
+
 const Event =  require("../event.js");
 
-function QAModel(configFileName) {
-	this._configFileName = configFileName;
-	this.modelEvent = new Event(this);
-	this._currentQuestion = -1;
-}
+class QAModel{
 
-QAModel.prototype = {
-	startAsking:function(){
+	constructor(configFileName) {
+		this._configFileName = configFileName;
+		this.modelEvent = new Event(this);
+		this._currentQuestion = -1;
+	}
+
+	startAsking(){
 		this.nextQuestion();
-	},
+	}
 
-    initializeQAlist : function(){
+	initializeQAlist(){
 		var fileName = this._configFileName;
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', fileName, true);
@@ -37,16 +40,16 @@ QAModel.prototype = {
 		}).bind(this);
 
 		xhr.send(); 
-	},
+	}
 
 	throwEndConfigFileLoadingEvent(){
 		var endLoadingEventArgs = {
 			'eventType' : 'EndConfigFileLoading'
 		};
 		this.modelEvent.notify(endLoadingEventArgs);	
-	},
+	}
 
-	checkAnswer : function(answer){
+	checkAnswer(answer){
 		var answerValidator = this._qalist[this._currentQuestion].AnswerValidator;
 		
 		if(answerValidator.type == "WithCorrectValues"){
@@ -107,18 +110,18 @@ QAModel.prototype = {
 			this.runErrorThowing(answerValidator.error);
 			return;
 		}
-	},
+	}
 
-	runErrorThowing : function(errorText){
+	runErrorThowing(errorText){
 		var ErrorArg = {
 			'eventType' : "errorThrowing",
 			'error' : errorText
 		};
 
 		this.modelEvent.notify(ErrorArg);
-	},
+	}
 
-	nextQuestion : function(){
+	nextQuestion(){
 		this._currentQuestion++;
 		var arg = {
 			'eventType' : "questionChanging",
@@ -127,6 +130,6 @@ QAModel.prototype = {
 		
 		this.modelEvent.notify(arg);
 	}
-};
+}
 
 module.exports = QAModel;

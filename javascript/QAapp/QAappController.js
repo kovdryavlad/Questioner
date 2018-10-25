@@ -1,18 +1,18 @@
-function QAController(view, model) {
-    this._view = view;
-	this._model = model;
-	
-	var onViewEvent = this.viewEventHandler.bind(this);
-	this._view.viewEvent.attach(onViewEvent);
-	
-	var onModelEvent = this.modelEventHandler.bind(this);
-	this._model.modelEvent.attach(onModelEvent);
+'use strict';
 
-	this._model.initializeQAlist();
-}
+class QAController{
 
-QAController.prototype = {
-    modelEventHandler : function (sender, args) {
+	constructor(view, model) {
+		this._view = view;
+		this._model = model;
+		
+		this._view.viewEvent.attach(this.viewEventHandler.bind(this));
+		this._model.modelEvent.attach(this.modelEventHandler.bind(this));
+
+		this._model.initializeQAlist();
+	}
+
+	modelEventHandler(sender, args) {
 		switch(args.eventType){
 			case "StartConfigFileLoading" :
 				this._view.showLoader();
@@ -33,14 +33,16 @@ QAController.prototype = {
 				this._view.showError(args.error);
 				break;
 		}
-    },
+	}
 	
-	viewEventHandler : function(sender, args){
-		if(args.eventType == "sendClicking"){
-			var answer = args.answer;
-			this._model.checkAnswer(answer);
+	viewEventHandler(sender, args){
+		switch(args.eventType){
+			case "sendClicking" : 
+				const answer = args.answer;
+				this._model.checkAnswer(answer);
+				break;
 		}
 	}
-};
+}
 
 module.exports = QAController;

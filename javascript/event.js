@@ -1,19 +1,19 @@
-function Event(sender) {
-    this._sender = sender;
-    this._listeners = [];
-}
+'use strict';
 
-Event.prototype = {
-    attach : function (listener) {
-        this._listeners.push(listener);
-    },
-    notify : function (args) {
-        var index;
+class Event{
 
-        for (index = 0; index < this._listeners.length; index += 1) {
-            this._listeners[index](this._sender, args);
-        }
+    constructor(sender){
+        this._sender = sender;
+        this._listeners = [];
     }
-};
+
+    attach(listener){
+        this._listeners.push(listener);
+    }
+
+    notify(args){
+        this._listeners.forEach(listener => listener(this._sender, args));
+    }
+}
 
 module.exports = Event;
