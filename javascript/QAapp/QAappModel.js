@@ -15,31 +15,21 @@ class QAModel{
 	}
 
 	initializeQAlist(){
-		var fileName = this._configFileName;
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', fileName, true);
-
 		var startLoadingEventArgs = {
 			'eventType' : 'StartConfigFileLoading'
 		};
 		this.modelEvent.notify(startLoadingEventArgs);
 
-		xhr.onreadystatechange = (function() { 
-			if (xhr.readyState != 4) return;
+		fetch(this._configFileName)
+		.then(response => response.json())
+		.then(response => 
+		{
+			this._qalist = response["Questions"];
 
-			if (xhr.status != 200) {
-				alert("Error with loading config file '" + fileName + 
-					  "'\n" + xhr.status + ': ' + xhr.statusText);
-			} else {
-				var response = JSON.parse(xhr.responseText);
-				this._qalist = response["Questions"];
-
-				setTimeout((this.throwEndConfigFileLoadingEvent).bind(this), 1000);
-			}
-
-		}).bind(this);
-
-		xhr.send(); 
+			//имитация загрузки с сервера
+			setTimeout((this.throwEndConfigFileLoadingEvent).bind(this), 1000);
+		})
+		.catch( err => alert('Error with loading config file'));
 	}
 
 	throwEndConfigFileLoadingEvent(){
