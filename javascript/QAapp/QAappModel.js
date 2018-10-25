@@ -15,10 +15,7 @@ class QAModel{
 	}
 
 	initializeQAlist(){
-		var startLoadingEventArgs = {
-			'eventType' : 'StartConfigFileLoading'
-		};
-		this.modelEvent.notify(startLoadingEventArgs);
+		this.fireStartConfigFileLoading();
 
 		fetch(this._configFileName)
 		.then(response => response.json())
@@ -27,20 +24,27 @@ class QAModel{
 			this._qalist = response["Questions"];
 
 			//имитация загрузки с сервера
-			setTimeout((this.throwEndConfigFileLoadingEvent).bind(this), 1000);
+			setTimeout((this.fireEndConfigFileLoadingEvent).bind(this), 1000);
 		})
-		.catch( err => alert('Error with loading config file'));
+		.catch( err => alert('Error with loading config file'))
 	}
 
-	throwEndConfigFileLoadingEvent(){
-		var endLoadingEventArgs = {
+	fireStartConfigFileLoading(){
+		const startLoadingEventArgs = {
+			'eventType' : 'StartConfigFileLoading'
+		};
+		this.modelEvent.notify(startLoadingEventArgs);
+	}
+
+	fireEndConfigFileLoadingEvent(){
+		const endLoadingEventArgs = {
 			'eventType' : 'EndConfigFileLoading'
 		};
 		this.modelEvent.notify(endLoadingEventArgs);	
 	}
 
 	checkAnswer(answer){
-		var answerValidator = this._qalist[this._currentQuestion].AnswerValidator;
+		const answerValidator = this._qalist[this._currentQuestion].AnswerValidator;
 		
 		if(answerValidator.type == "WithCorrectValues"){
 			if(answerValidator.correctAnswers.includes(answer)){
@@ -53,7 +57,7 @@ class QAModel{
 		} 
 		
 		else if(answerValidator.type == "StringType"){
-			if(answer===""){
+			if(answer === ""){
 				this.runErrorThowing(answerValidator.error);
 				return;
 			}
@@ -75,17 +79,17 @@ class QAModel{
 		}
 
 		else if(answerValidator.type == "NumberType"){
-			var filteredAnswer = answer.match(/[0-9]/gi);
+			const filteredAnswer = answer.match(/[0-9]/gi);
 			
-			if(filteredAnswer == null ||filteredAnswer.length !== answer.length){
+			if(filteredAnswer == null || filteredAnswer.length !== answer.length){
 				this.runErrorThowing(answerValidator.error);
 				return;
 			}
-			else if(+answer<10){
+			else if(+answer<answerValidator.minBorder){
 				this.runErrorThowing(answerValidator.minError);
 				return;
 			}
-			else if(+answer>100){
+			else if(+answer>answerValidator.maxBorder){
 				this.runErrorThowing(answerValidator.maxError);
 				return;
 			}
@@ -103,7 +107,7 @@ class QAModel{
 	}
 
 	runErrorThowing(errorText){
-		var ErrorArg = {
+		const ErrorArg = {
 			'eventType' : "errorThrowing",
 			'error' : errorText
 		};
