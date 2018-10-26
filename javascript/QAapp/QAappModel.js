@@ -1,13 +1,14 @@
 'use strict';
 
 const Event =  require("../event.js");
-
+const AnswerValidator = require("./AnswerValidator.js");
 class QAModel{
 
 	constructor(configFileName) {
 		this._configFileName = configFileName;
 		this.modelEvent = new Event(this);
-		this._currentQuestion = -1;
+		this._numberOfCurrentQuestion = -1;
+		this._answerValidator = new AnswerValidator();
 	}
 
 	startAsking(){
@@ -43,9 +44,19 @@ class QAModel{
 		this.modelEvent.notify(endLoadingEventArgs);	
 	}
 
+	getCurrentQuestion(){
+		return this._qalist[this._numberOfCurrentQuestion];
+	}
+
 	checkAnswer(answer){
-		const answerValidator = this._qalist[this._currentQuestion].AnswerValidator;
-		
+		const currentQuestion = this.getCurrentQuestion();
+
+		this._answerValidator.validate(answer, 
+									   currentQuestion.validationRules, 
+									   this.nextQuestion.bind(this), 
+									   this.runErrorThowing.bind(this));
+
+		/*
 		if(answerValidator.type == "WithCorrectValues"){
 			if(answerValidator.correctAnswers.includes(answer)){
 				this.nextQuestion();
@@ -103,7 +114,7 @@ class QAModel{
 		else if(answerValidator.type == "WithoutAnswer"){
 			this.runErrorThowing(answerValidator.error);
 			return;
-		}
+		}*/
 	}
 
 	runErrorThowing(errorText){
@@ -116,10 +127,10 @@ class QAModel{
 	}
 
 	nextQuestion(){
-		this._currentQuestion++;
-		var arg = {
+		this._numberOfCurrentQuestion++;
+		const arg = {
 			'eventType' : "questionChanging",
-			'question': this._qalist[this._currentQuestion].question
+			'question': this.getCurrentQuestion().questionText
 		};
 		
 		this.modelEvent.notify(arg);

@@ -1,44 +1,59 @@
 {
   "Questions" : [
       {
-        "question" : "Привіт!",
+        "questionText" : "Привіт!",
         
-        "AnswerValidator" : {
-          "type" : "WithCorrectValues",
-          "error": "Привітайся нормально!",
-          "correctAnswers": ["Привіт", "Добрий день", "Хай"]
-        }
-        
-      },
-      {
-        
-        "question" : "Як тебе звати?",
-        
-        "AnswerValidator" : {
-          "type" : "StringType",
-          "error": "Ти ж не робот, напиши нормально!"
-        }
-      },
-      {
-        "question" : "Скільки тобі років?",
-        
-        "AnswerValidator" : {
-          "type" : "NumberType",
-          "minBorder" : 10,
-          "maxBorder" : 100,
-          "minError" : "Йди звідси, щеня",
-          "maxError" : "Що ти тут забув, старий?",
-          "error" : "Ти ж не робот, напиши нормально!"
-        }
+        "validationRules" : [ 
+          {
+            "type" : "WithCorrectValues",
+            "error": "Привітайся нормально!",
+            "correctAnswers": ["Привіт", "Добрий день", "Хай"]
+          }
+        ]
+  
       },
       
       {
-        "question" : "Ну ми починаємо",
         
-        "AnswerValidator" : {
-          "type" : "WithoutAnswer",
-          "error": "Не поспішай!"
-        }
+        "questionText" : "Як тебе звати?",
+        
+        "validationRules" : [
+          {
+            "type" : "StringType",
+            "regularExpression" : "[a-zа-яі]",
+            "error": "Ти ж не робот, напиши нормально!"
+          }
+        ]
+      },
+
+      {
+        "questionText" : "Скільки тобі років?",
+        
+        "validationRules" : [
+          {
+            "type" : "StringType",
+            "regularExpression" : "[0-9]",
+            "error": "Ти ж не робот, напиши нормально!"
+          },
+          {
+            "type" : "NumberType",
+            "minBorder" : 10,
+            "maxBorder" : 100,
+            "minError" : "Йди звідси, щеня",
+            "maxError" : "Що ти тут забув, старий?"
+          }
+        ]
+      },
+      
+      {
+        "questionText" : "Ну ми починаємо",
+        
+        "validationRules" : [
+          {
+            "type" : "WithoutAnswer",
+            "error": "Не поспішай!"
+          }
+        ]
       }
     ]
   }
