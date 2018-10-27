@@ -19,7 +19,7 @@ module.exports = {
 
   module: {
     rules: [
-      /*{
+      {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
@@ -28,24 +28,14 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
-      },*/
+      },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: "css-loader"
         })
-      }/*,  Это работает, но выкидыват ошибку
-      {
-        test: /\.json$/,
-        exclude: /node_modules/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]'
-          }
-        }]
-      }*/
+      }
     ]
   },
   plugins: [
@@ -54,8 +44,6 @@ module.exports = {
     ),
 
     new HtmlWebpackPlugin({
-      //inject: false,
-      //hash: true,
       template: './index.html',
       filename: 'index.html'
     }),

@@ -37,7 +37,6 @@ class AnswerValidator{
             if(errorHappened)
                 return;
 
-
         }
 
         onSuccess();
@@ -56,7 +55,7 @@ class AnswerValidator{
             return false;
         }
 
-        const regExp = new RegExp(validationRuleObj.regularExpression, 'g', 'i');
+        const regExp = new RegExp(validationRuleObj.regularExpression, "gi");
         const filteredAnswer = answer.match(regExp);
         
         if(filteredAnswer == null){
@@ -76,11 +75,11 @@ class AnswerValidator{
 
     validate_NumberType(answer, validationRuleObj, onError){
         if(+answer<validationRuleObj.minBorder){
-            this.onError(validationRuleObj.minError);
+            onError(validationRuleObj.minError);
             return false; 
         }
         else if(+answer>validationRuleObj.maxBorder){
-            this.onError(validationRuleObj.maxError);
+            onError(validationRuleObj.maxError);
             return false;
         }
     }
