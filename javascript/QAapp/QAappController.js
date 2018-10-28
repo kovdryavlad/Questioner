@@ -38,8 +38,7 @@ class QAController{
 	viewEventHandler(sender, args){
 		switch(args.eventType){
 			case "sendClicking" : 
-				const answer = args.answer;
-				this._model.checkAnswer(answer);
+				this._model.checkAnswer(args.answer);
 				break;
 		}
 	}

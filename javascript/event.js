@@ -4,15 +4,15 @@ class Event{
 
     constructor(sender){
         this._sender = sender;
-        this._listeners = [];
+        this._callbacks = [];
     }
 
-    attach(listener){
-        this._listeners.push(listener);
+    attach(callback){
+        this._callbacks.push(callback);
     }
 
     notify(args){
-        this._listeners.forEach(listener => listener(this._sender, args));
+        this._callbacks.forEach(callback => callback(this._sender, args));
     }
 }
 

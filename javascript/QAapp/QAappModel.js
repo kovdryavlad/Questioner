@@ -2,6 +2,7 @@
 
 const Event =  require("../event.js");
 const AnswerValidator = require("./AnswerValidator.js");
+
 class QAModel{
 
 	constructor(configFileName) {
@@ -31,14 +32,14 @@ class QAModel{
 	}
 
 	fireStartConfigFileLoading(){
-		const startLoadingEventArgs = {
+		let startLoadingEventArgs = {
 			'eventType' : 'StartConfigFileLoading'
 		};
 		this.modelEvent.notify(startLoadingEventArgs);
 	}
 
 	fireEndConfigFileLoadingEvent(){
-		const endLoadingEventArgs = {
+		let endLoadingEventArgs = {
 			'eventType' : 'EndConfigFileLoading'
 		};
 		this.modelEvent.notify(endLoadingEventArgs);	
@@ -49,7 +50,7 @@ class QAModel{
 	}
 
 	checkAnswer(answer){
-		const currentQuestion = this.getCurrentQuestion();
+		let currentQuestion = this.getCurrentQuestion();
 
 		this._answerValidator.validate(answer, 
 									   currentQuestion.validationRules, 
@@ -58,7 +59,7 @@ class QAModel{
 	}
 
 	runErrorThowing(errorText){
-		const ErrorArg = {
+		let ErrorArg = {
 			'eventType' : "errorThrowing",
 			'error' : errorText
 		};
@@ -68,7 +69,7 @@ class QAModel{
 
 	nextQuestion(){
 		this._numberOfCurrentQuestion++;
-		const arg = {
+		let arg = {
 			'eventType' : "questionChanging",
 			'question': this.getCurrentQuestion().questionText
 		};

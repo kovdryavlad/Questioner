@@ -23,7 +23,7 @@ class QAView{
 		this._answerInput.setAttribute("type", "text");
 		this._form.appendChild(this._answerInput);
 		
-		const button = document.createElement("INPUT"); 
+		let button = document.createElement("INPUT"); 
 		button.setAttribute("type", "button");
 		button.setAttribute("value", "Відправити");
 		button.onclick = this.onSendClick.bind(this);
@@ -52,7 +52,7 @@ class QAView{
 	}
 
 	onSendClick(){
-		const answer = this._answerInput.value;
+		let answer = this._answerInput.value;
 		this.viewEvent.notify({
 			'eventType': "sendClicking",
 			'answer': answer

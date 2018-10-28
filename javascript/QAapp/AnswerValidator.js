@@ -1,92 +1,63 @@
+'use strict';
+
+const WithCorrectValuesValidationService = require("./ValidationServices/WithCorrectValuesValidationService.js");
+const StringTypeValidationService = require("./ValidationServices/StringTypeValidationService.js");
+const NumberTypeValidationService = require("./ValidationServices/NumberTypeValidationService.js");
+const WithoutAnswerValidationService = require("./ValidationServices/WithoutAnswerValidationService.js");
+
 class AnswerValidator{
 
     validate(answer, validationRules, onSuccess, onError){
 
-        let errorHappened;            
-        let checkOnErrorValidateFunction = ((func, validationRule)=>{
-            if(func(answer, validationRule, onError) == false){
-                errorHappened = true;
-            }
-        });
-
         for(let validationRule of validationRules){
+
+            let validationService;
             
-            errorHappened = false;
-            const type = validationRule.type;
-            
-            switch(type){
+            switch(validationRule.type){
 
                 case "WithCorrectValues":
-                    checkOnErrorValidateFunction(this.validate_WithCorrectValues, validationRule);
+                    validationService = new WithCorrectValuesValidationService();
                     break;
 
                 case "StringType":
-                    checkOnErrorValidateFunction(this.validate_StringType, validationRule)
+                    validationService = new StringTypeValidationService();
                     break;
                     
                 case "NumberType":
-                    checkOnErrorValidateFunction(this.validate_NumberType, validationRule);
+                    validationService = new NumberTypeValidationService();
                     break;
 
                 case "WithoutAnswer":
-                    checkOnErrorValidateFunction(this.validate_WithoutAnswer, validationRule);
+                    validationService = new WithoutAnswerValidationService();
                     break;
 
             }
 
-            if(errorHappened)
-                return;
+            let validationResult = validationService.isValid(answer, validationRule);
+            let [isValid, customError] = this.processValidationResult(validationResult);
 
+            if(!isValid){
+                if(customError !== undefined){
+                    onError(customError);
+                }else{
+                    onError(validationRule.error);
+                }
+                
+                return;
+            }
         }
 
         onSuccess();
     }
 
-    validate_WithCorrectValues(answer, validationRuleObj, onError){
-        if(!validationRuleObj.correctAnswers.includes(answer)){
-            onError(validationRuleObj.error);
-            return false;
-        }
-    }
-
-    validate_StringType(answer, validationRuleObj, onError){
-        if(answer === ""){
-            onError(validationRuleObj.error);
-            return false;
-        }
-
-        const regExp = new RegExp(validationRuleObj.regularExpression, "gi");
-        const filteredAnswer = answer.match(regExp);
+    processValidationResult(validationResult){
         
-        if(filteredAnswer == null){
-            onError(validationRuleObj.error);
-            return false;
+        if(Array.isArray(validationResult)){
+            return validationResult;
         }
-        
-        else if(filteredAnswer.length == answer.length){
-            return;
-        }
-
         else{
-            onError(validationRuleObj.error);
-            return false;
+            return [validationResult];
         }
-    }
-
-    validate_NumberType(answer, validationRuleObj, onError){
-        if(+answer<validationRuleObj.minBorder){
-            onError(validationRuleObj.minError);
-            return false; 
-        }
-        else if(+answer>validationRuleObj.maxBorder){
-            onError(validationRuleObj.maxError);
-            return false;
-        }
-    }
-
-    validate_WithoutAnswer(answer, validationRuleObj, onError){
-        onError(validationRuleObj.error);
-		return false;
     }
 }
 
