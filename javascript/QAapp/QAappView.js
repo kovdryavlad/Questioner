@@ -45,9 +45,10 @@ class QAView{
 	}
 
 	enterPressDetecting(e){
+		
 		if(e.keyCode == 13){		//13 - Enter's code
 			this.onSendClick();
-			return false;			//без этого false обновляется страница
+			e.preventDefault();
 		}
 	}
 

@@ -11,30 +11,7 @@ class AnswerValidator{
 
         for(let validationRule of validationRules){
 
-            let validationService;
-            
-            switch(validationRule.type){
-
-                case "WithCorrectValues":
-                    validationService = new WithCorrectValuesValidationService();
-                    break;
-
-                case "StringType":
-                    validationService = new StringTypeValidationService();
-                    break;
-                    
-                case "NumberType":
-                    validationService = new NumberTypeValidationService();
-                    break;
-
-                case "WithoutAnswer":
-                    validationService = new WithoutAnswerValidationService();
-                    break;
-
-            }
-
-            let validationResult = validationService.isValid(answer, validationRule);
-            let [isValid, customError] = this.processValidationResult(validationResult);
+            let [isValid, customError] = this.isValid(answer, validationRule);
 
             if(!isValid){
                 if(customError !== undefined){
@@ -48,6 +25,36 @@ class AnswerValidator{
         }
 
         onSuccess();
+    }
+
+    isValid(answer, rule){
+        
+        let validationService;
+            
+        switch(rule.type){
+
+            case "WithCorrectValues":
+                validationService = new WithCorrectValuesValidationService();
+                break;
+
+            case "StringType":
+                validationService = new StringTypeValidationService();
+                break;
+                
+            case "NumberType":
+                validationService = new NumberTypeValidationService();
+                break;
+
+            case "WithoutAnswer":
+                validationService = new WithoutAnswerValidationService();
+                break;
+
+        }
+
+        let validationResult = validationService.isValid(answer, rule);
+        
+        return this.processValidationResult(validationResult);
+
     }
 
     processValidationResult(validationResult){
