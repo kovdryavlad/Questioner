@@ -37,7 +37,7 @@ class QAController{
 	
 	viewEventHandler(sender, args){
 		switch(args.eventType){
-			case "sendClicking" : 
+			case "sendAnswer" : 
 				this._model.checkAnswer(args.answer);
 				break;
 		}
