@@ -11,24 +11,26 @@ const Event =  require("../../event.js");
 
 class QAApp extends React.Component{
 	
-	constructor() {
+	constructor(props) {
 
 		console.log("I was in QAApp constructor. Your logger");
 		
 		
 		//REACT
-		super();		
+		super(props);
 	
 		this.state = {
 			'question': "questionText",
 			'error': "errorText",
 			'answer': ""
-		}
+		};
 
 		this.handleAnswerChange = this.handleAnswerChange.bind(this);
 
 		//Other
-		this.viewEvent = new Event(this);	
+		this.viewEvent = new Event(this);
+
+		this.props.onStart(this);
 	}
 
 	render()
