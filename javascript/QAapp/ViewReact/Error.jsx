@@ -10,7 +10,7 @@ class Error extends React.Component{
 
 	render()
 	{
-		return <p class="error">{this.props.text}</p>;
+		return <p className="error">{this.props.text}</p>;
 	}
 
 };

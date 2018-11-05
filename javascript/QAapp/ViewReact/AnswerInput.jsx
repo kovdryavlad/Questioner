@@ -15,8 +15,8 @@ class AnswerInput extends React.Component{
 	render()
 	{
         return (
-            <form class="flexContainer">
-                <input type="text" value={this.props.answer} onChange={this.handleChange}></input>
+            <form className="flexContainer">
+                <input type="text" value={this.props.answer} onChange={this.handleChange.bind(this)}></input>
                 <input type="button" value="Відправити"></input>
             </form>
         );
