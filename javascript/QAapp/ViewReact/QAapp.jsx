@@ -11,32 +11,24 @@ const Event =  require("../../event.js");
 
 class QAApp extends React.Component{
 	
-	constructor(appBlock) {
+	constructor() {
 
 		console.log("I was in QAApp constructor. Your logger");
-
+		
+		
+		//REACT
 		super();		
-
-		this.viewEvent = new Event(this);		
+	
 		this.state = {
-			question: "questionText",
-			error: "errorText",
-			answer: ""
+			'question': "questionText",
+			'error': "errorText",
+			'answer': ""
 		}
 
 		this.handleAnswerChange = this.handleAnswerChange.bind(this);
 
-	}
-
-	handleAnswerChange(answer){
-		this.setState({
-			'answer' : answer}
-			);
-			
-		this.viewEvent.notify({
-			'eventType': "sendAnswer",
-			'answer': answer
-		});
+		//Other
+		this.viewEvent = new Event(this);	
 	}
 
 	render()
@@ -50,11 +42,38 @@ class QAApp extends React.Component{
 		);
 	}
 
-};
+	handleAnswerChange(answer){
+		this.setState({
+			'answer' : answer}
+			);
+			
+		this.viewEvent.notify({
+			'eventType': "sendAnswer",
+			'answer': answer
+		});
+	}
 
-ReactDOM.render(
-	<QAApp/>,
-	document.getElementById("appContainer")
-  );
+	setQuestion(textOfQuestion){
+		this.setState({
+			'question': textOfQuestion
+		});
+	}
+
+	showError(textOfError){
+		this.setState({
+			'error': textOfError
+		});		
+	}
+
+	clearError(){
+		this.showError("");
+	}
+
+	clearAnswerInput(){
+		this.setState({
+			'answer': ''
+		});		
+	}
+};
 
 module.exports = QAApp;
