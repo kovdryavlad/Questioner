@@ -13,12 +13,14 @@ const PATH_TO_CONFIG_FILE = "./QAappConfig.json";	//для папки dist
 
 document.addEventListener("DOMContentLoaded", function(event) { 
 	const view  = new QAApp();
-	const model = new QAModel(PATH_TO_CONFIG_FILE);		
-	const controller = new QAController(view, model);  
 	
 	ReactDOM.render(
 		view.render(),
 		document.getElementById(ID_OF_BLOCK_WITH_APP)
 	);
 
+	const model = new QAModel(PATH_TO_CONFIG_FILE);		
+	const controller = new QAController(view, model);  
+	
+	
 });

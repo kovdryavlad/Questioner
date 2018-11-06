@@ -26,11 +26,11 @@ class QAController{
 			case "questionChanging":
 				//this._view.clearAnswerInput();
 				this._view.clearError();
-				this._view.setQuestion(args.question);
+				//this._view.setQuestion(args.question);
 				break;
 
 			case "errorThrowing": 
-				this._view.showError(args.error);
+				//this._view.showError(args.error);
 				break;
 		}
 	}

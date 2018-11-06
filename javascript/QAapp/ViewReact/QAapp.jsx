@@ -31,8 +31,16 @@ class QAApp extends React.Component{
 		this.viewEvent = new Event(this);	
 	}
 
-	render()
-	{
+	componentDidMount() {
+		this._isMounted = true;
+	}
+
+	componentWillUnmount() {
+		this._isMounted = false;
+	}
+
+	render(){
+
 		return (
 			<div id="QAapp">
 				<QuestionTitle text = {this.state.question}/>
@@ -60,9 +68,11 @@ class QAApp extends React.Component{
 	}
 
 	showError(textOfError){
-		this.setState({
-			'error': textOfError
-		});		
+		if(this._isMounted){
+			this.setState({
+				'error': textOfError
+			});
+		}
 	}
 
 	clearError(){
