@@ -6,6 +6,7 @@ const ReactDOM = require('react-dom');
 const QuestionTitle = require('./QuestionTitle.jsx');
 const AnswerInput = require('./AnswerInput.jsx');
 const Error = require('./Error.jsx');
+const Loader = require('./Loader.jsx');
 
 const Event =  require("../../event.js");
 
@@ -20,32 +21,44 @@ class QAApp extends React.Component{
 		super(props);
 	
 		this.state = {
-			'question': "questionText",
-			'error': "errorText",
-			'answer': ""
+			question      : "questionText",
+			error         : "errorText",
+			answer        : "",
+			needShowLoader: false
 		};
 
 		this.handleAnswerChange = this.handleAnswerChange.bind(this);
 
 		//Other
 		this.viewEvent = new Event(this);
+	}
 
+	componentDidMount() {
 		this.props.onStart(this);
 	}
 
 	render(){
 
 		return (
-			<div id="QAapp">
-				<QuestionTitle text = {this.state.question}/>
+			<div id="QAapp" class="flexContainer">
+				{this.state.needShowLoader?
+					<Loader/>
+					:
+					(
+						<div className="questioner flexContainer">
+							<QuestionTitle text = {this.state.question}/>
 
-				<AnswerInput value={this.state.answer} 
-							 onAnswerChange={this.handleAnswerChange} 
-							 onSendClick={this.onSendAnswerClick.bind(this)}/>
+							<AnswerInput value={this.state.answer} 
+								onAnswerChange={this.handleAnswerChange} 
+								onSendClick={this.onSendAnswerClick.bind(this)}/>
 
-				<Error text={this.state.error}/>
+							<Error text={this.state.error}/>
+						</div>
+					)	
+				}
 			</div>
 		);
+		
 	}
 
 	handleAnswerChange(answer){
@@ -88,6 +101,18 @@ class QAApp extends React.Component{
 		this.setState({
 			'answer': ''
 		});		
+	}
+
+	showLoader(){
+		this.setState({
+			needShowLoader: true
+		});		
+	}
+
+	hideLoader(){
+		this.setState({
+			needShowLoader: false
+		});	
 	}
 };
 

@@ -15,11 +15,11 @@ class QAController{
 	modelEventHandler(sender, args) {
 		switch(args.eventType){
 			case "StartConfigFileLoading" :
-				//this._view.showLoader();
+				this._view.showLoader();
 				break;
 			
 			case "EndConfigFileLoading":
-				//this._view.hideLoader();
+				this._view.hideLoader();
 				this._model.startAsking();
 				break;
 				
