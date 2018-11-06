@@ -50,15 +50,23 @@ class QAModel{
 	}
 
 	checkAnswer(answer){
+		this.validateAnswer(answer, this.fireChangeErrorText.bind(this, ''));
+	}
+
+	sendAnswer(answer){
+		this.validateAnswer(answer, this.nextQuestion.bind(this));
+	}
+
+	validateAnswer(answer, onSuccess){
 		let currentQuestion = this.getCurrentQuestion();
 
 		this._answerValidator.validate(answer, 
 									   currentQuestion.validationRules, 
-									   this.nextQuestion.bind(this), 
-									   this.runErrorThowing.bind(this));
+									   onSuccess, 
+									   this.fireChangeErrorText.bind(this));
 	}
 
-	runErrorThowing(errorText){
+	fireChangeErrorText(errorText){
 		let ErrorArg = {
 			'eventType' : "errorThrowing",
 			'error' : errorText

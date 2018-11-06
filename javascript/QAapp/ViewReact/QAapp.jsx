@@ -33,20 +33,16 @@ class QAApp extends React.Component{
 		this.props.onStart(this);
 	}
 
-	componentDidMount() {
-		this._isMounted = true;
-	}
-
-	componentWillUnmount() {
-		this._isMounted = false;
-	}
-
 	render(){
 
 		return (
 			<div id="QAapp">
 				<QuestionTitle text = {this.state.question}/>
-				<AnswerInput value={this.state.answer} onAnswerChange={this.handleAnswerChange}/>
+
+				<AnswerInput value={this.state.answer} 
+							 onAnswerChange={this.handleAnswerChange} 
+							 onSendClick={this.onSendAnswerClick.bind(this)}/>
+
 				<Error text={this.state.error}/>
 			</div>
 		);
@@ -58,8 +54,15 @@ class QAApp extends React.Component{
 			);
 			
 		this.viewEvent.notify({
-			'eventType': "sendAnswer",
+			'eventType': "AnswerChange",
 			'answer': answer
+		});
+	}
+
+	onSendAnswerClick(answer){
+		this.viewEvent.notify({
+			'eventType': "sendAnswer",
+			'answer': this.state.answer
 		});
 	}
 
@@ -70,11 +73,11 @@ class QAApp extends React.Component{
 	}
 
 	showError(textOfError){
-		if(this._isMounted){
-			this.setState({
-				'error': textOfError
-			});
-		}
+		
+		this.setState({
+			'error': textOfError
+		});
+	
 	}
 
 	clearError(){
