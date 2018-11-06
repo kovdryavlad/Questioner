@@ -10,9 +10,6 @@ const ReactDOM = require('react-dom');
 
 const ID_OF_BLOCK_WITH_APP = "appContainer";
 const PATH_TO_CONFIG_FILE = "./QAappConfig.json";	//для папки dist
-
-document.addEventListener("DOMContentLoaded", function(event) { 
-	const view  = new QAApp();
 	
 document.addEventListener("DOMContentLoaded", function(event) {
 
