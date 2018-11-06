@@ -7,6 +7,7 @@ const QuestionTitle = require('./QuestionTitle.jsx');
 const AnswerInput = require('./AnswerInput.jsx');
 const Error = require('./Error.jsx');
 const Loader = require('./Loader.jsx');
+const Quetioner = require('./Questioner.jsx');
 
 const Event =  require("../../event.js");
 
@@ -28,7 +29,7 @@ class QAApp extends React.Component{
 		};
 
 		this.handleAnswerChange = this.handleAnswerChange.bind(this);
-
+		this.handleSendAnswerClick = this.handleSendAnswerClick.bind(this);
 		//Other
 		this.viewEvent = new Event(this);
 	}
@@ -40,21 +41,15 @@ class QAApp extends React.Component{
 	render(){
 
 		return (
-			<div id="QAapp" class="flexContainer">
+			<div id="QAapp" className="flexContainer">
 				{this.state.needShowLoader?
-					<Loader/>
-					:
-					(
-						<div className="questioner flexContainer">
-							<QuestionTitle text = {this.state.question}/>
+					<Loader/> :
 
-							<AnswerInput value={this.state.answer} 
-								onAnswerChange={this.handleAnswerChange} 
-								onSendClick={this.onSendAnswerClick.bind(this)}/>
-
-							<Error text={this.state.error}/>
-						</div>
-					)	
+					<Quetioner question={this.state.question}
+							   answer={this.state.answer}
+							   onAnswerChange={this.handleAnswerChange}
+							   onSendAnswerClick={this.handleSendAnswerClick}
+							   error={this.state.error}/>
 				}
 			</div>
 		);
@@ -72,7 +67,7 @@ class QAApp extends React.Component{
 		});
 	}
 
-	onSendAnswerClick(answer){
+	handleSendAnswerClick(answer){
 		this.viewEvent.notify({
 			'eventType': "sendAnswer",
 			'answer': this.state.answer
