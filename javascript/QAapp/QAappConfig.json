@@ -7,6 +7,7 @@
           {
             "type" : "WithCorrectValues",
             "error": "Привітайся нормально!",
+            "isCaseSensitive" : false,
             "correctAnswers": ["Привіт", "Добрий день", "Хай"]
           }
         ]
