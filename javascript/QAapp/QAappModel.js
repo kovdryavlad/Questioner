@@ -48,21 +48,13 @@ class QAModel{
 	getCurrentQuestion(){
 		return this._qalist[this._numberOfCurrentQuestion];
 	}
-
-	checkAnswer(answer){
-		this.validateAnswer(answer, this.fireChangeErrorText.bind(this, ''));
-	}
-
+	
 	sendAnswer(answer){
-		this.validateAnswer(answer, this.nextQuestion.bind(this));
-	}
-
-	validateAnswer(answer, onSuccess){
 		let currentQuestion = this.getCurrentQuestion();
 
 		this._answerValidator.validate(answer, 
 									   currentQuestion.validationRules, 
-									   onSuccess, 
+									   this.nextQuestion.bind(this), 
 									   this.fireChangeErrorText.bind(this));
 	}
 

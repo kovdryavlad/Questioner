@@ -53,6 +53,10 @@ class QAView{
 	}
 
 	onSendClick(){
+		processAnswer();		
+	}
+
+	processAnswer()	{
 		let answer = this._answerInput.value;
 		this.viewEvent.notify({
 			'eventType': "sendClicking",

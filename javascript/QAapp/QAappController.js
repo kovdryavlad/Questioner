@@ -37,13 +37,19 @@ class QAController{
 	
 	viewEventHandler(sender, args){
 		switch(args.eventType){
-			case "AnswerChange" : 
-				this._model.checkAnswer(args.answer);
-				break;
-			
-			case "sendAnswer" : 
+			case "answerSending" : 
 				this._model.sendAnswer(args.answer);
 				break;
+			case "keyPressing" :
+				this.handleKeyPressing(args.keyCode);
+				break;
+				
+		}
+	}
+
+	handleKeyPressing(keyCode){
+		if(keyCode == 13) { //код клавиши Enter
+			this._view.processAnswer();
 		}
 	}
 }
