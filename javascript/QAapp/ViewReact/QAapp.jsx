@@ -36,7 +36,7 @@ class QAApp extends React.Component{
 		return (
 			<div id="QAapp" className="flexContainer">
 				{this.state.needShowLoader?
-					<Loader/> :
+					<Loader pathToImage="./loader.gif"/> :
 
 					<Quetioner question={this.state.question}
 							   answer={this.state.answer}
