@@ -1,0 +1,59 @@
+{
+  "Questions" : [
+      {
+        "questionText" : "Привіт!",
+        
+        "validationRules" : [ 
+          {
+            "type" : "WithCorrectValues",
+            "error": "Привітайся нормально!",
+            "correctAnswers": ["Привіт", "Добрий день", "Хай"]
+          }
+        ]
+  
+      },
+      
+      {
+        
+        "questionText" : "Як тебе звати?",
+        
+        "validationRules" : [
+          {
+            "type" : "StringType",
+            "regularExpression" : "[a-zа-яі]",
+            "error": "Ти ж не робот, напиши нормально!"
+          }
+        ]
+      },
+
+      {
+        "questionText" : "Скільки тобі років?",
+        
+        "validationRules" : [
+          {
+            "type" : "StringType",
+            "regularExpression" : "[0-9]",
+            "error": "Ти ж не робот, напиши нормально!"
+          },
+          {
+            "type" : "NumberType",
+            "minBorder" : 10,
+            "maxBorder" : 100,
+            "minError" : "Йди звідси, щеня",
+            "maxError" : "Що ти тут забув, старий?"
+          }
+        ]
+      },
+      
+      {
+        "questionText" : "Ну ми починаємо",
+        
+        "validationRules" : [
+          {
+            "type" : "WithoutAnswer",
+            "error": "Не поспішай!"
+          }
+        ]
+      }
+    ]
+  }
