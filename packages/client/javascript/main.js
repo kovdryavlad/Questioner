@@ -9,7 +9,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const ID_OF_BLOCK_WITH_APP = "appContainer";
-const PATH_TO_CONFIG_FILE = "./QAappConfig.json";	//для папки dist
+const PATH_TO_CONFIG_FILE = "http://localhost:3000/questions";	
 	
 document.addEventListener("DOMContentLoaded", function(event) {
 

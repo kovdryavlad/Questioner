@@ -53,11 +53,6 @@ module.exports = {
 
     new CopyWebpackPlugin([
       {
-        from: './javascript/QAapp/QAappConfig.json',
-        //to: 'config.json',  //это переименует файл
-        //toType: 'file'
-      },
-      {
         from: './assets/',
         
       }

@@ -25,8 +25,7 @@ class QAModel{
 		{
 			this._qalist = response["Questions"];
 
-			//имитация загрузки с сервера
-			setTimeout((this.fireEndConfigFileLoadingEvent).bind(this), 1000);
+			this.fireEndConfigFileLoadingEvent();
 		})
 		.catch( err => alert('Error with loading config file'))
 	}
