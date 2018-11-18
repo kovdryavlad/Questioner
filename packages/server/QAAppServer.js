@@ -7,7 +7,16 @@ class QAAppServer{
     createServer(){
 
         this._app = express();
-
+        
+        this.setHeaders();
+    }
+    
+    setHeaders(){
+        this._app.use(function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+        });
     }
 
     setupAPI(){
@@ -17,7 +26,15 @@ class QAAppServer{
         });
 
         this._app.get('/questions', function (req, res) {
-            res.status(200).type('json').send(config);
+            
+            //имитация загрузки сервера
+            let d1 = new Date();
+
+            while (new Date(new Date() - d1).getMilliseconds()<500){
+                ;
+            }
+
+            res.status(200).type('json').send(config)
         });
 
         this._app.get('*', function (req, res) {
