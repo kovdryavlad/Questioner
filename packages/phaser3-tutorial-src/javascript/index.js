@@ -45,6 +45,7 @@ let bombs;
 let score = 0;
 let scoreText;
 
+let gameOver = false;
 function create ()
 {
     this.add.image(400, 300, 'sky');
@@ -162,12 +163,16 @@ function update ()
     if (cursors.left.isDown){
         player.setVelocityX(-160);
 
-        player.anims.play('left', true);
+        if(!gameOver){
+            player.anims.play('left', true);
+        }
     }
     else if (cursors.right.isDown) {
         player.setVelocityX(160);
 
-        player.anims.play('right', true);
+        if(!gameOver){
+            player.anims.play('right', true);
+        }
     }
     else{
         player.setVelocityX(0);
