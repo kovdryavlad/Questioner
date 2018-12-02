@@ -4,7 +4,7 @@
   "description": "server for QA application",
   "main": "server.js",
   "scripts": {
-    "run": "node server.js"
+    "dev": "node server.js"
   },
   "author": "",
   "license": "ISC",
