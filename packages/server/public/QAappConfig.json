@@ -43,17 +43,6 @@
             "maxError" : "Що ти тут забув, старий?"
           }
         ]
-      },
-      
-      {
-        "questionText" : "Ну ми починаємо",
-        
-        "validationRules" : [
-          {
-            "type" : "WithoutAnswer",
-            "error": "Не поспішай!"
-          }
-        ]
       }
     ]
   }
