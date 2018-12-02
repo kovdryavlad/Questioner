@@ -17,6 +17,8 @@
         
         "questionText" : "Як тебе звати?",
         
+        "answerFieldName": "name",
+
         "validationRules" : [
           {
             "type" : "StringType",
@@ -29,6 +31,8 @@
       {
         "questionText" : "Скільки тобі років?",
         
+        "answerFieldName": "age",
+
         "validationRules" : [
           {
             "type" : "StringType",
