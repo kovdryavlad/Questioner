@@ -38,6 +38,8 @@ function preload ()
 
 let platforms;
 let cursors;
+let stars;
+
 function create ()
 {
     this.add.image(400, 300, 'sky');
@@ -63,7 +65,7 @@ function create ()
         repeat: -1
     });
 
-    //adding a colider
+    //adding a colider player with platforms
     this.physics.add.collider(player, platforms);
 
     //animations
@@ -82,6 +84,30 @@ function create ()
 
     //creating cursors object
     cursors = this.input.keyboard.createCursorKeys();
+
+    //stars
+    stars = this.physics.add.group({
+        key: 'star',
+        repeat: 11,
+        setXY: { x: 12, y: 0, stepX: 70 }
+    });
+    
+    stars.children.iterate(function (child) {
+    
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+    
+    });
+
+    //adding a colider for stars and platforms
+    this.physics.add.collider(stars, platforms);
+
+    //collecting stars
+    this.physics.add.overlap(player, stars, collectStar, null, this);
+}
+
+function collectStar (player, star)
+{
+    star.disableBody(true, true);
 }
 
 function update ()
