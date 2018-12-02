@@ -18,14 +18,28 @@ module.exports = {
     port: 5050
   },
 
-  //devtool: 'eval-source-map',
+  devtool: 'eval-source-map',
 
   module: {
     rules: [
+      
       {
         test: [ /\.vert$/, /\.frag$/ ],
         use: 'raw-loader'
-      }
+      },
+      
+
+      {
+        test: /\.(js)$/,    //    /\.js$/
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
     ]
   },
   plugins: [
@@ -42,9 +56,11 @@ module.exports = {
       }
     ]),
     
+    /*
     new webpack.DefinePlugin({
       'CANVAS_RENDERER': JSON.stringify(true),
       'WEBGL_RENDERER': JSON.stringify(true)
     })
+    */
   ]
 }
