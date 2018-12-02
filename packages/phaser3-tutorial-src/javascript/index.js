@@ -1,4 +1,4 @@
-import 'phaser';
+require('phaser');
 
 var config = {
     type: Phaser.AUTO,
