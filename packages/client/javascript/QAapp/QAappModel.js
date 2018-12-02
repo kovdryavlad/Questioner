@@ -10,6 +10,7 @@ class QAModel{
 		this.modelEvent = new Event(this);
 		this._numberOfCurrentQuestion = -1;
 		this._answerValidator = new AnswerValidator();
+		this._answers = {};
 	}
 
 	startAsking(){
@@ -53,8 +54,29 @@ class QAModel{
 
 		this._answerValidator.validate(answer, 
 									   currentQuestion.validationRules, 
-									   this.nextQuestion.bind(this), 
+									   this.onSuccessValidation.bind(this), 
 									   this.fireChangeErrorText.bind(this));
+	}
+
+	saveAnswer(fieldName, fildValue){
+
+		Object.assign(this._answers, {
+			
+			fieldName: filedValue
+
+		});
+
+	}
+
+	onSuccessValidation(answer){
+
+		let answerFieldName = this.getCurrentQuestion().answerFieldName;
+
+        if(answerFieldName !== undefined){
+			saveAnswer(answerFieldName, answer);
+		}
+
+		nextQuestion();
 	}
 
 	fireChangeErrorText(errorText){

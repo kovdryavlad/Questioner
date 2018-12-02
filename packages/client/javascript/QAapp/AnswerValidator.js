@@ -24,7 +24,7 @@ class AnswerValidator{
             }
         }
 
-        onSuccess();
+        onSuccess(answer);
     }
 
     isValid(answer, rule){
