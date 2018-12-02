@@ -1,3 +1,5 @@
+'use strict';
+
 require('phaser');
 
 var config = {
