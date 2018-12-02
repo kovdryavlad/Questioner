@@ -58,11 +58,11 @@ class QAModel{
 									   this.fireChangeErrorText.bind(this));
 	}
 
-	saveAnswer(fieldName, fildValue){
+	saveAnswer(fieldName, fieldValue){
 
 		Object.assign(this._answers, {
 			
-			fieldName: filedValue
+			[fieldName] : fieldValue
 
 		});
 
@@ -73,10 +73,20 @@ class QAModel{
 		let answerFieldName = this.getCurrentQuestion().answerFieldName;
 
         if(answerFieldName !== undefined){
-			saveAnswer(answerFieldName, answer);
+			this.saveAnswer(answerFieldName, answer);
 		}
 
-		nextQuestion();
+		if(this.isIssetNextQuestion()){
+			this.nextQuestion();
+		}else{
+			this.runGame();
+		}
+	}
+
+	runGame(){
+
+		
+
 	}
 
 	fireChangeErrorText(errorText){
@@ -86,6 +96,14 @@ class QAModel{
 		};
 
 		this.modelEvent.notify(ErrorArg);
+	}
+
+	isIssetNextQuestion(){
+		if(this._numberOfCurrentQuestion + 1 < this._qalist.length){
+			return true;
+		} else{
+			return false;
+		}
 	}
 
 	nextQuestion(){
