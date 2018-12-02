@@ -62,6 +62,10 @@ function create ()
         repeat: -1
     });
 
+    //adding a colider
+    this.physics.add.collider(player, platforms);
+
+    //animations
     this.anims.create({
         key: 'turn',
         frames: [ { key: 'dude', frame: 4 } ],
