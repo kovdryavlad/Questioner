@@ -115,6 +115,10 @@ class QAApp extends React.Component{
 	showGame(){
 		this.setState({action : "game"});		
 	}
+
+	sendAnswersToGame(answersObj){
+		document.getElementById("gameIframe").contentWindow.postMessage(JSON.stringify(answersObj), "*");
+	}
 };
 
 module.exports = QAApp;

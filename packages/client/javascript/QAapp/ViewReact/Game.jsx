@@ -10,7 +10,11 @@ class Game extends React.Component{
 
 	render()
 	{
-        return (<iframe width={this.props.width} height={this.props.height} src={this.props.gameLink}>
+		return (<iframe id="gameIframe"
+						width={this.props.width} 
+						height={this.props.height} 
+						src={this.props.gameLink}>
+
                     Ваш браузер не поддерживает iframe
                 </iframe>);
 	}

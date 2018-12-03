@@ -34,6 +34,7 @@ class QAController{
 
 			case "loadGame": 
 				this._view.showGame();
+				this._view.sendAnswersToGame(args.answers);
 				break;
 		}	
 	}
