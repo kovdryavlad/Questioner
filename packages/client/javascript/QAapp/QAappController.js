@@ -19,7 +19,6 @@ class QAController{
 				break;
 			
 			case "EndConfigFileLoading":
-				this._view.hideLoader();
 				this._model.startAsking();
 				break;
 				

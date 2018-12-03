@@ -15,7 +15,8 @@ class QAApp extends React.Component{
 			question      : "questionText",
 			error         : "errorText",
 			answer        : "",
-			needShowLoader: false
+			action        : "loader", //loader, questioner, game
+			gameUrl		  : "http://localhost:5050/"
 		};
 
 		this.handleAnswerChange = this.handleAnswerChange.bind(this);
@@ -33,17 +34,33 @@ class QAApp extends React.Component{
 
 	render(){
 
-		return (
-			<div id="QAapp" className="flexContainer">
-				{this.state.needShowLoader?
-					<Loader pathToImage="./loader.gif"/> :
+		let content;
 
-					<Quetioner question={this.state.question}
-							   answer={this.state.answer}
-							   onAnswerChange={this.handleAnswerChange}
-							   onSendAnswerClick={this.handleSendAnswerClick}
-							   error={this.state.error}/>
-				}
+		switch(this.state.action){
+
+			case "loader":
+				content = <Loader pathToImage="./loader.gif"/>;
+				break;
+
+			case "questioner":
+				content = (<Quetioner question={this.state.question}
+							          answer={this.state.answer}
+							          onAnswerChange={this.handleAnswerChange}
+							          onSendAnswerClick={this.handleSendAnswerClick}
+							          error={this.state.error}/>);
+				break;
+
+			case "game":
+				content = (<Game width="800"
+								 height="600"
+								 gameLink={this.state.gameUrl}/>);
+				break;
+		}
+
+		return (
+			
+			<div id="QAapp" className="flexContainer">
+				{content}
 			</div>
 		);
 		
@@ -69,7 +86,11 @@ class QAApp extends React.Component{
 	}
 
 	setQuestion(textOfQuestion){
-		this.setState({'question': textOfQuestion});
+		this.setState({
+			'question': textOfQuestion,
+			'action' : "questioner"
+		});
+
 	}
 
 	showError(textOfError){
@@ -87,11 +108,7 @@ class QAApp extends React.Component{
 	}
 
 	showLoader(){
-		this.setState({needShowLoader: true});		
-	}
-
-	hideLoader(){
-		this.setState({needShowLoader: false});	
+		this.setState({action : "loader", });		
 	}
 };
 
