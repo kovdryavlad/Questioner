@@ -2,6 +2,9 @@
 
 require('phaser');
 
+
+
+//game 
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -45,7 +48,13 @@ let bombs;
 let score = 0;
 let scoreText;
 
+let name;
+let age
+
 let gameOver = false;
+
+let setUserInfo;
+
 function create ()
 {
     this.add.image(400, 300, 'sky');
@@ -111,7 +120,10 @@ function create ()
     this.physics.add.overlap(player, stars, collectStar, null, this);
 
     //score text setting
-    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+
+    name = this.add.text(650, 20, 'gamer: '+ name, { fontSize: '14px', fill: '#000' });
+    age = this.add.text(650, 40, 'age: '+ age, { fontSize: '12px', fill: '#000' });
 
     ////bombs
     bombs = this.physics.add.group();
@@ -183,4 +195,17 @@ function update ()
     if (cursors.up.isDown && player.body.touching.down){
         player.setVelocityY(-330);
     }
+}
+
+window.addEventListener("message", receiveMessage, false);
+
+function receiveMessage(event)
+{
+    console.log(event.data);
+
+    let arr = event.data.split(',')
+
+    name.setText("name:" + arr[0]);
+    age.setText("age:" + arr[1]);
+    
 }

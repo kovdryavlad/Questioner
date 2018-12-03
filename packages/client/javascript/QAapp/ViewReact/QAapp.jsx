@@ -17,7 +17,8 @@ class QAApp extends React.Component{
 			error         : "errorText",
 			answer        : "",
 			action        : "loader", //loader, questioner, game
-			gameUrl		  : "http://localhost:5050/"
+			gameUrl		  : "http://localhost:5050/",
+			answers 	  : undefined
 		};
 
 		this.handleAnswerChange = this.handleAnswerChange.bind(this);
@@ -54,7 +55,8 @@ class QAApp extends React.Component{
 			case "game":
 				content = (<Game width="800"
 								 height="600"
-								 gameLink={this.state.gameUrl}/>);
+								 gameLink={this.state.gameUrl}
+								 setParamsFunction={this.sendAnswersToGame.bind(this)}/>);
 				break;
 		}
 
@@ -112,12 +114,16 @@ class QAApp extends React.Component{
 		this.setState({action : "loader", });		
 	}
 
-	showGame(){
-		this.setState({action : "game"});		
+	showGame(answersObj){
+		this.setState({
+			action : "game",
+			answers: answersObj
+		});		
 	}
 
-	sendAnswersToGame(answersObj){
-		document.getElementById("gameIframe").contentWindow.postMessage(JSON.stringify(answersObj), "*");
+	sendAnswersToGame(object){
+		//object.contentWindow.postMessage(JSON.stringify(this.state.answers), "*");
+		object.contentWindow.postMessage(this.state.answers.name +","+this.state.answers.age, "*");
 	}
 };
 

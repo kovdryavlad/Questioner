@@ -19,6 +19,11 @@ class Game extends React.Component{
                 </iframe>);
 	}
 
+	componentDidMount() {
+		let iframe = document.getElementById("gameIframe");
+		this.props.setParamsFunction(iframe);
+	}
+
 };
 
 module.exports = Game;
