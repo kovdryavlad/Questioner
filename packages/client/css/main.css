@@ -27,8 +27,8 @@ h1{
 
 #QAapp{
 	border: 3px solid rgb(83, 41, 160);
-	width: 230px;
-	height: 300px;
+	min-width: 230px;
+	min-height: 300px;
 	border-radius: 11px;	
 }
 .answerInput{
