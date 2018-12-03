@@ -85,7 +85,9 @@ class QAModel{
 
 	runGame(){
 
-		
+		this.modelEvent.notify({
+			'eventType' : 'loadGame'
+		});
 
 	}
 

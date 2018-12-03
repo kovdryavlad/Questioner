@@ -31,7 +31,11 @@ class QAController{
 			case "errorThrowing": 
 				this._view.showError(args.error);
 				break;
-		}
+
+			case "loadGame": 
+				this._view.showGame();
+				break;
+		}	
 	}
 	
 	viewEventHandler(sender, args){
