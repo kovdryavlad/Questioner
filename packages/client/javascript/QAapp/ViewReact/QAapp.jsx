@@ -3,6 +3,7 @@
 
 const Quetioner = require('./Questioner.jsx');
 const Loader = require('./Loader.jsx');
+const Game = require('./Game.jsx');
 const Event =  require("../../event.js");
 const React = require('react');
 
