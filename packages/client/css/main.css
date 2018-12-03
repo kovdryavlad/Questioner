@@ -55,6 +55,7 @@ h1{
 
 #QAapp .error{
 	color : red;
+	width: 230px;
 }
 
 .inVisible{
