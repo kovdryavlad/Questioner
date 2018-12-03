@@ -110,6 +110,10 @@ class QAApp extends React.Component{
 	showLoader(){
 		this.setState({action : "loader", });		
 	}
+
+	showGame(){
+		this.setState({action : "game"});		
+	}
 };
 
 module.exports = QAApp;
