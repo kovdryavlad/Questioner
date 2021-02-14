@@ -12,6 +12,6 @@ After resolving the dependencies^
   in "server" (server part of application) 
       "npm run dev" - for running
       
-  #for running all parts of application we need 3 local servers
+  for running all parts of application we need 3 local servers
       
-  #appliction will be available at http://localhost:9000/
+  appliction will be available at http://localhost:9000/
